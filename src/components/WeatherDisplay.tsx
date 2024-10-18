@@ -2,6 +2,8 @@ import useWeatherHistory from "@/stores/useWeatherHistory";
 import cloudLogo from "@/assets/cloud.png";
 import sunLogo from "@/assets/sun.png";
 import dayjs from "dayjs";
+import { useEffect } from "react";
+import { getWeatherByCity } from "@/apis/openWeatherApi";
 
 export default function WeatherDisplay() {
   const selectedWeather = useWeatherHistory(
@@ -9,6 +11,33 @@ export default function WeatherDisplay() {
       state.selectedWeatherName &&
       state.weatherRecord[state.selectedWeatherName]
   );
+  const addWeather = useWeatherHistory((state) => state.addWeather);
+
+  useEffect(() => {
+    let controller: AbortController | null = null;
+    if (
+      selectedWeather &&
+      !dayjs(selectedWeather.timestamp).isSame(dayjs(), "day")
+    ) {
+      const cityName = selectedWeather.name;
+      controller = new AbortController();
+      async function updateOutdatedWeather() {
+        const weatherResp = await getWeatherByCity(cityName, {
+          signal: controller?.signal,
+        });
+
+        if (weatherResp.success) {
+          addWeather(weatherResp.data);
+        }
+      }
+      updateOutdatedWeather();
+    }
+    return () => {
+      if (controller) {
+        controller.abort();
+      }
+    };
+  }, [selectedWeather, addWeather]);
 
   /** @refer https://openweathermap.org/weather-conditions#Weather-Condition-Codes-2 */
   const isSunny = !selectedWeather || selectedWeather.weatherTypeId === 800;

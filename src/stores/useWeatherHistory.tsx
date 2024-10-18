@@ -14,12 +14,27 @@ type WeatherHistoryStoreAction = {
   removeWeather: (name: string) => void;
 };
 
+// Set one city as default info
+const defaultCityName = "Singapore, SG";
+const defaultCityWeather = {
+  humidity: 77,
+  maxTemp: 30,
+  minTemp: 28,
+  name: "Singapore, SG",
+  temp: 29,
+  timestamp: 1729245600000,
+  weatherType: "Rain",
+  weatherTypeId: 500,
+};
+
 const useWeatherHistory = create<
   WeatherHistoryStoreState & WeatherHistoryStoreAction
 >((set) => ({
-  selectedWeatherName: null,
-  weatherRecord: {},
-  weatherNameList: [],
+  selectedWeatherName: defaultCityName,
+  weatherRecord: {
+    [defaultCityName]: defaultCityWeather,
+  },
+  weatherNameList: [defaultCityName],
   addWeather: (weather) =>
     set((state) => ({
       selectedWeatherName: weather.name,
