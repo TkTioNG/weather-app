@@ -53,14 +53,14 @@ export default function WeatherDisplay() {
         <>
           <div className="sm:flex-1">
             <h6>Today's Weather</h6>
-            <h3 className="text-7xl sm:text-8xl font-bold text-white">
+            <h3 className="text-7xl sm:text-8xl font-bold text-purple-800 dark:text-white">
               {selectedWeather.temp}&deg;
             </h3>
             <p>
               H: {selectedWeather.maxTemp}&deg; L: {selectedWeather.minTemp}
               &deg;
             </p>
-            <div className="flex justify-between text-white">
+            <div className="flex justify-between text-zinc-500 dark:text-white">
               <p className="font-bold">{selectedWeather.name}</p>
               <p className="hidden sm:block">
                 {dayjs(selectedWeather.timestamp).format("DD-MM-YYYY hh:mma")}
@@ -71,7 +71,7 @@ export default function WeatherDisplay() {
               <p className="hidden sm:block">{selectedWeather.weatherType}</p>
             </div>
           </div>
-          <div className="flex flex-1 flex-col-reverse items-end truncate sm:hidden text-white">
+          <div className="flex flex-1 flex-col-reverse items-end truncate sm:hidden text-zinc-500 dark:text-white">
             <p className="text-right w-full truncate">
               {dayjs(selectedWeather.timestamp).format("DD-MM-YYYY hh:mma")}
             </p>
@@ -86,8 +86,10 @@ export default function WeatherDisplay() {
       ) : (
         <div className="sm:flex-1">
           <h6>Today's Weather</h6>
-          <h3 className="text-8xl font-bold text-white">-&deg;</h3>
-          <p className="italic text-zinc-400">
+          <h3 className="text-8xl font-bold text-purple-800 dark:text-white">
+            -&deg;
+          </h3>
+          <p className="italic text-zinc-500 dark:text-zinc-400">
             Please type a city on search bar above to display its current
             weather.
           </p>

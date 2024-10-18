@@ -3,6 +3,7 @@ import useWeatherHistory from "@/stores/useWeatherHistory";
 import { getWeatherByCity } from "@/apis/openWeatherApi";
 import { Button } from "./ui/button";
 import { MagnifyingGlassIcon, ReloadIcon } from "@radix-ui/react-icons";
+import ThemeToggle from "./ThemeToogle";
 import { ErrorMessage } from "@hookform/error-message";
 
 export default function SearchBar() {
@@ -33,6 +34,7 @@ export default function SearchBar() {
 
   return (
     <div className="flex gap-3">
+      <ThemeToggle />
       <form className="flex flex-1 gap-3" onSubmit={handleSubmit(checkWeather)}>
         <fieldset className="flex-1 relative">
           <label htmlFor="city" className="sr-only">
@@ -42,7 +44,7 @@ export default function SearchBar() {
             {...register("city", { required: "City name is required" })}
             id="city"
             placeholder="City"
-            className="flex-1 rounded-lg h-8 w-full px-2 text-sm bg-[#ffffff40] bg-indigo-950"
+            className="flex-1 rounded-lg h-8 w-full px-2 text-sm bg-[#ffffff40] dark:bg-indigo-950"
             aria-invalid={!!errors.city}
             aria-errormessage={"err-city"}
           />
@@ -52,7 +54,7 @@ export default function SearchBar() {
             render={({ message }) => (
               <p
                 id="err-city"
-                className="text-red-500 text-sm pl-2 pt-1 absolute max-w-full"
+                className="text-red-600 dark:text-red-500 text-sm pl-2 pt-1 absolute max-w-full"
               >
                 {message.charAt(0).toUpperCase() + message.slice(1)}
               </p>
@@ -63,7 +65,7 @@ export default function SearchBar() {
           variant="default"
           size="icon"
           type="submit"
-          className="rounded-lg p-0 bg-violet-950"
+          className="rounded-lg p-0 bg-purple-900 dark:bg-violet-950"
           disabled={isSubmitting}
           aria-disabled={isSubmitting}
         >

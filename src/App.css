@@ -1,3 +1,14 @@
+body {
+  background-image: url(./assets/bg-light.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+html.dark body {
+  background-image: url(./assets/bg-dark.png);
+}
+
 #root {
   max-width: 700px;
   margin: 0 auto;

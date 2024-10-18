@@ -17,7 +17,7 @@ function HistoryItemButton({
     <Button
       variant="default"
       size="icon"
-      className="rounded-full p-0 bg-transparent border border-zinc-400"
+      className="rounded-full p-0 bg-white shadow-md dark:bg-transparent dark:shadow-none dark:border dark:border-zinc-400"
       onClick={onClick}
       aria-label={label}
     >
@@ -34,10 +34,10 @@ function WeatherHistoryItem({ weatherName }: { weatherName: string }) {
   const removeWeather = useWeatherHistory((state) => state.removeWeather);
 
   return (
-    <div className="rounded-2xl bg-indigo-950 p-4 flex gap-3">
+    <div className="rounded-2xl bg-[#ffffff88] dark:bg-indigo-950 p-4 flex gap-3">
       <div className="flex flex-1 flex-col sm:flex-row sm:justify-between sm:items-center truncate">
         <p>{weatherInfo.name}</p>
-        <p className="text-zinc-400 truncate sm:text-sm">
+        <p className="text-xs dark:text-zinc-400 truncate sm:text-sm">
           {dayjs(weatherInfo.timestamp).format("DD-MM-YYYY hh:mma")}
         </p>
       </div>
