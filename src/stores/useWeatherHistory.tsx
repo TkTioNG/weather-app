@@ -23,8 +23,8 @@ const defaultCityWeather = {
   name: "Singapore, SG",
   temp: 29,
   timestamp: 1729245600000,
-  weatherType: "Rain",
-  weatherTypeId: 500,
+  weatherType: "Clear",
+  weatherTypeId: 800,
 };
 
 const useWeatherHistory = create<
