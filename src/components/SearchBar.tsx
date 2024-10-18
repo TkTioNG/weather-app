@@ -1,5 +1,6 @@
 import { useForm } from "react-hook-form";
 import useWeatherHistory from "@/stores/useWeatherHistory";
+import { getWeatherByCity } from "@/apis/openWeatherApi";
 import { Button } from "./ui/button";
 import { MagnifyingGlassIcon, ReloadIcon } from "@radix-ui/react-icons";
 import { ErrorMessage } from "@hookform/error-message";
@@ -9,11 +10,25 @@ export default function SearchBar() {
     register,
     formState: { isSubmitting, errors },
     handleSubmit,
+    setError,
+    resetField,
   } = useForm();
   const addWeather = useWeatherHistory((state) => state.addWeather);
 
   const checkWeather = async (data: Record<string, string>) => {
-    /** @todo fetch weather info */
+    /** @todo through react-query? */
+    const weatherResp = await getWeatherByCity(data.city);
+
+    if (!weatherResp.success) {
+      setError(
+        "city",
+        { type: "custom", message: weatherResp.errorMessage },
+        { shouldFocus: true }
+      );
+      return;
+    }
+    addWeather(weatherResp.data);
+    resetField("city");
   };
 
   return (
